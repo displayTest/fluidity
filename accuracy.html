@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
+    <head>
+        <title>Accuracy</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <nav>
+        <table>
+            <tr>
+                <td><a href="swipe_calibration.html#start">Swipe Calibration</a>
+                <td><a href="swipe.html#start">Swipe</a>
+                <td><a href="accuracy.html#start">Accuracy</a>
+        </table>
+    </nav>
+    <body onload="listenMovement(); saveRefToFile()">
+
+        <div id=start></div>
+        <hr style="border-top: 140vh solid white;">
+        <div class="circle fixed" onclick="circleClicked()" style="top: 2%; left: 2%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 2%; left: 25%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 2%; left: 50%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 2%; left: 75%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 2%; left: 98%"></div>
+
+        <div class="circle fixed" onclick="circleClicked()" style="top: 25%; left: 2%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 25%; left: 25%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 25%; left: 50%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 25%; left: 75%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 25%; left: 98%"></div>
+
+        <div class="circle fixed" onclick="circleClicked()" style="top: 50%; left: 2%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 50%; left: 25%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 50%; left: 50%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 50%; left: 75%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 50%; left: 98%"></div>
+
+        <div class="circle fixed" onclick="circleClicked()" style="top: 75%; left: 2%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 75%; left: 25%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 75%; left: 50%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 75%; left: 75%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 75%; left: 98%"></div>
+
+        <div class="circle fixed" onclick="circleClicked()" style="top: 98%; left: 2%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 98%; left: 25%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 98%; left: 50%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 98%; left: 75%"></div>
+        <div class="circle fixed" onclick="circleClicked()" style="top: 98%; left: 98%"></div>
+
+        <div class="fixed" onclick="saveDataToFile()" style="top: 62.5%; left: 50%">FINISHED</div>
+    </body>
+    <script src="js/FileSaver.js"></script>
+    <script>
+        // add function on touchstart event to tell us where the touches started
+        var touch;
+        var touchX;
+        var touchY;
+        var csv = "X, Y\n";
+
+        function touchListener(event) {
+            touch = event.touches[0];
+            touchX = Math.round(touch.clientX);
+            touchY = Math.round(touch.clientY);
+            csv += touchX + ", " + touchY + "\n";
+            console.log("touch at: X" + touchX + " Y" + touchY);
+        }
+        
+        // add listener to page when function is called onload of body so that the above functions will be called
+        function listenMovement() {
+            document.addEventListener('touchstart', touchListener, false);
+        }
+
+        // fullscreen
+        function openFullscreen() {
+            var elem = document.getElementById("fullscreen");
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // when a circle is clicked
+        function circleClicked() {
+            var me = event.target
+            if (me.style.display === "none") {
+                me.style.display = "block";
+            } else {
+                me.style.display = "none";
+            }
+        }
+
+        // Save ref circles to csv
+        function saveRefToFile() {
+            // get reference circle coordinates
+            var csv_ref = "X, Y\n";
+            circles = document.getElementsByClassName("circle");
+            for (i = 0; i < circles.length; i++) {
+                var rect = circles[i].getBoundingClientRect();
+                x = (rect.right + rect.left) / 2;
+                y = (rect.bottom + rect.top) / 2;
+                csv_ref += Math.round(x) + ", " + Math.round(y) + "\n"; 
+            };
+            var blob_ref = new Blob([csv_ref], { type: "text/plain;charset=utf-8" });
+            saveAs(blob_ref, "accuracy_ref.csv");
+        }
+
+        // Save click events to csv
+        function saveDataToFile() {
+            var blob_results = new Blob([csv], { type: "text/plain;charset=utf-8" });
+            saveAs(blob_results, "accuracy_results.csv");
+        }
+    </script>
+</html>

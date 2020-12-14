@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
+    <head>
+        <title>Swipe Calibration</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <nav>
+        <table>
+            <tr>
+                <td><a href="swipe_calibration.html#start">Swipe Calibration</a>
+                <td><a href="swipe.html#start">Swipe</a>
+                <td><a href="accuracy.html#start">Accuracy</a>
+        </table>
+    </nav>
+    <body onload="get_ppi();">
+        <div id="start"></div>
+        <hr style="border-top: 45vh solid white;">
+        <hr style="border-top: 1mm solid black;">
+        <div id="calibration"></div>
+        <hr style="border-top: 1mm solid black;">
+        <p id="ppi"></p>
+        <hr style="border-top: 50vh solid white;">
+        <img>
+    </body>
+    <script>
+        function get_ppi() {
+            var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
+            var diagonal_size_in = 6.1;
+            var ppi = diagonal_resolution_px / diagonal_size_in;
+            var px_centimer = ppi / 2.54
+            document.getElementById("ppi").innerText = "ppi = " + ppi + "// 1cm = " + px_centimer;
+            document.getElementById("calibration").innerHTML = "<hr id=\"calibration\" style=\"border-top: "+ px_centimer +"px solid white;\">";
+        }
+    </script>
+</html>
