@@ -2,7 +2,7 @@
 <html>
     <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
     <head>
-        <title>Swipe</title>
+        <title>index</title>
         <link rel="stylesheet" href="style.css">
     </head>
     <nav>
@@ -15,9 +15,16 @@
     </nav>
     <body>
         <div id="start"></div>
-        <hr style="border-top: 110vh solid white;">
-        <hr style="border-top: 1mm solid black;">
-        <hr style="border-top: 110vh solid white;">
+        <hr style="border-top: 10vh solid white;">
+        <form name="form" onsubmit="validateSize()" method="post">
+            Screen diagonal size in inch: <input type="number" step="0.01" name="diagonal_size_in">
+            <input type="submit" value="Submit">
+        </form>
         <img>
     </body>
+    <script>
+        function validateSize() {
+            localStorage['diagonal_size_in'] = document.forms["form"]["diagonal_size_in"].value;
+        }
+    </script>
 </html>
