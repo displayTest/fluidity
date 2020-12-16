@@ -63,6 +63,7 @@
             touchY = Math.round(touch.clientY);
             csv += touchX + ", " + touchY + "\n";
             console.log("touch at: X" + touchX + " Y" + touchY);
+            console.log("mm coordinates: X" + pixel_to_mm(touchX) + " Y" + pixel_to_mm(touchY));
         }
         
         // add listener to page when function is called onload of body so that the above functions will be called
@@ -111,6 +112,15 @@
         function saveDataToFile() {
             var blob_results = new Blob([csv], { type: "text/plain;charset=utf-8" });
             saveAs(blob_results, "accuracy_results.csv");
+        }
+
+        // Convertion from pixel to mm
+        function pixel_to_mm(px) {
+            var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
+            var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
+            var ppi = diagonal_resolution_px / diagonal_size_in;
+            var one_pixel_in_mm = ppi * 25.4;
+            return one_pixel_in_mm * px;
         }
     </script>
 </html>

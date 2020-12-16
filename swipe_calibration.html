@@ -13,22 +13,32 @@
                 <td><a href="accuracy.html#start">Accuracy</a>
         </table>
     </nav>
-    <body onload="load_calibration_lines();">
+    <body onload="load_calibration_lines(); load_colors();">
         <div id="start"></div>
         <hr style="border-top: 45vh solid white;">
         <hr style="border-top: 1mm solid black;">
         <div id="calibration"></div>
         <hr style="border-top: 1mm solid black;">
         <hr style="border-top: 50vh solid white;">
-        <img>
     </body>
     <script>
         function load_calibration_lines() {
             var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             var ppi = diagonal_resolution_px / diagonal_size_in;
-            var px_centimer = ppi / 2.54
-            document.getElementById("calibration").innerHTML = "<hr id=\"calibration\" style=\"border-top: "+ px_centimer +"px solid white;\">";
+            var one_centimer_in_px = ppi / 2.54
+            document.getElementById("calibration").innerHTML = "<hr id=\"calibration\" style=\"border-top: "+ one_centimer_in_px +"px solid white;\">";
+        }
+        function load_colors() {
+            if (localStorage.getItem("inverse_colors") !== null && localStorage['inverse_colors'] == "true") {
+                var hrs = document.getElementsByTagName("hr");
+                for (var i = 0; i < hrs.length; i++) {
+                    if (hrs[i].style.borderTopColor == "white")
+                        hrs[i].style.borderTopColor = "black";
+                    else
+                        hrs[i].style.borderTopColor = "white";
+                }
+            }
         }
     </script>
 </html>

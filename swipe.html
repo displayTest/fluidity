@@ -13,11 +13,23 @@
                 <td><a href="accuracy.html#start">Accuracy</a>
         </table>
     </nav>
-    <body>
+    <body onload="load_colors();">
         <div id="start"></div>
         <hr style="border-top: 110vh solid white;">
         <hr style="border-top: 1mm solid black;">
         <hr style="border-top: 110vh solid white;">
-        <img>
     </body>
+    <script>
+        function load_colors() {
+            if (localStorage.getItem("inverse_colors") !== null && localStorage['inverse_colors'] == "true") {
+                var hrs = document.getElementsByTagName("hr");
+                for (var i = 0; i < hrs.length; i++) {
+                    if (hrs[i].style.borderTopColor == "white")
+                        hrs[i].style.borderTopColor = "black";
+                    else
+                        hrs[i].style.borderTopColor = "white";
+                }
+            }
+        }
+    </script>
 </html>
