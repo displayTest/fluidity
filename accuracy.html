@@ -61,6 +61,7 @@
             touch = event.touches[0];
             touchX = Math.round(touch.clientX);
             touchY = Math.round(touch.clientY);
+            csv += touchX + ", " + touchY + "\n";
             csv += pixel_to_mm(touchX) + ", " + pixel_to_mm(touchY) + "\n";
             console.log("touch at: X" + touchX + " Y" + touchY);
             console.log("mm coordinates: X" + pixel_to_mm(touchX) + " Y" + pixel_to_mm(touchY));
