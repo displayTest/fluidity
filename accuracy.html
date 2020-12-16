@@ -61,7 +61,7 @@
             touch = event.touches[0];
             touchX = Math.round(touch.clientX);
             touchY = Math.round(touch.clientY);
-            csv += touchX + ", " + touchY + "\n";
+            csv += pixel_to_mm(touchX) + ", " + pixel_to_mm(touchY) + "\n";
             console.log("touch at: X" + touchX + " Y" + touchY);
             console.log("mm coordinates: X" + pixel_to_mm(touchX) + " Y" + pixel_to_mm(touchY));
         }
@@ -102,7 +102,9 @@
                 var rect = circles[i].getBoundingClientRect();
                 x = (rect.right + rect.left) / 2;
                 y = (rect.bottom + rect.top) / 2;
-                csv_ref += Math.round(x) + ", " + Math.round(y) + "\n"; 
+                x = pixel_to_mm(Math.round(x));
+                y = pixel_to_mm(Math.round(y));
+                csv_ref += x + ", " + y + "\n"; 
             };
             var blob_ref = new Blob([csv_ref], { type: "text/plain;charset=utf-8" });
             saveAs(blob_ref, "accuracy_ref.csv");
@@ -119,7 +121,7 @@
             var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             var ppi = diagonal_resolution_px / diagonal_size_in;
-            var one_pixel_in_mm = ppi * 25.4;
+            var one_pixel_in_mm = 1 / (ppi * 0.254);
             return one_pixel_in_mm * px;
         }
     </script>
