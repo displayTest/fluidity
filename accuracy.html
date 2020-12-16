@@ -122,6 +122,7 @@
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             var ppi = diagonal_resolution_px / diagonal_size_in;
             var one_pixel_in_mm = 1 / (ppi * 0.254);
+            console.log("screen.width:" + screen.width + "//screen.height:" + screen.height + "//ppi:" + ppi + "//diago_size_in:" + diagonal_size_in);
             return one_pixel_in_mm * px;
         }
     </script>
