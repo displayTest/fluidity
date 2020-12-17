@@ -28,8 +28,8 @@
 
         // init variables needed for next functions
         function load_variables() {
-            screen_width = screen.width * window.devicePixelRatio;
-            screen_height = screen.height * window.devicePixelRatio;
+            screen_width = screen.width; // do not use devicePixelRatio here as the error is cancelled using px unit for drawing 
+            screen_height = screen.height;
             var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             ppi = diagonal_resolution_px / diagonal_size_in;
