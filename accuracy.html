@@ -51,7 +51,6 @@
     </body>
     <script src="js/FileSaver.js"></script>
     <script>
-        // add function on touchstart event to tell us where the touches started
         var touch;
         var touchX;
         var touchY;
@@ -59,24 +58,26 @@
         var screen_width;
         var screen_height;
         var ppi;
+        var ratio;
 
+        // init variables needed for next functions
         function load_variables() {
             screen_width = screen.width * window.devicePixelRatio;
             screen_height = screen.height * window.devicePixelRatio;
+            ratio = window.devicePixelRatio;
             var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             ppi = diagonal_resolution_px / diagonal_size_in;
         }
 
+        // add function on touchstart event to tell us where the touches started
         function touchListener(event) {
             touch = event.touches[0];
             touchX = Math.round(touch.screenX);
             touchY = Math.round(touch.screenY);
             // apply ratio if density of pixel is not 1:1
-            ratio = window.devicePixelRatio
             touchX = touchX * ratio
             touchY = touchY * ratio
-            csv += touchX + ", " + touchY + "\n";
             csv += pixel_to_mm(touchX) + ", " + pixel_to_mm(touchY) + "\n";
             console.log("touch at: X" + touchX + " Y" + touchY);
             console.log("mm coordinates: X" + pixel_to_mm(touchX) + " Y" + pixel_to_mm(touchY));
@@ -87,7 +88,7 @@
             document.addEventListener('touchstart', touchListener, false);
         }
 
-        // fullscreen
+        // fullscreen (not used)
         function openFullscreen() {
             var elem = document.getElementById("fullscreen");
             if (elem.requestFullscreen) {
@@ -118,6 +119,8 @@
                 var rect = circles[i].getBoundingClientRect();
                 x = (rect.right + rect.left) / 2;
                 y = (rect.bottom + rect.top) / 2;
+                x = x * ratio;
+                y = y * ratio;
                 x = pixel_to_mm(Math.round(x));
                 y = pixel_to_mm(Math.round(y));
                 csv_ref += x + ", " + y + "\n"; 
