@@ -70,7 +70,6 @@
 
         function touchListener(event) {
             touch = event.touches[0];
-            touch.
             touchX = Math.round(touch.screenX);
             touchY = Math.round(touch.screenY);
             // apply ratio if density of pixel is not 1:1
@@ -135,7 +134,7 @@
 
         // Convertion from pixel to mm
         function pixel_to_mm(px) {
-            var one_pixel_in_mm = 1 / (ppi * 0.254);
+            var one_pixel_in_mm = 25.4 / ppi;
             return one_pixel_in_mm * px;
         }
     </script>
