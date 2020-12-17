@@ -13,7 +13,7 @@
                 <td><a href="accuracy.html#start">Accuracy</a>
         </table>
     </nav>
-    <body onload="load_calibration_lines(); load_colors();">
+    <body onload="load_variables(); load_calibration_lines(); load_colors();">
         <div id="start"></div>
         <hr style="border-top: 45vh solid white;">
         <hr style="border-top: 1mm solid black;">
@@ -22,13 +22,30 @@
         <hr style="border-top: 50vh solid white;">
     </body>
     <script>
-        function load_calibration_lines() {
-            var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
+        var screen_width;
+        var screen_height;
+        var ppi;
+
+        // init variables needed for next functions
+        function load_variables() {
+            screen_width = screen.width * window.devicePixelRatio;
+            screen_height = screen.height * window.devicePixelRatio;
+            var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
-            var ppi = diagonal_resolution_px / diagonal_size_in;
-            var one_centimer_in_px = ppi / 2.54
-            document.getElementById("calibration").innerHTML = "<hr id=\"calibration\" style=\"border-top: "+ one_centimer_in_px +"px solid white;\">";
+            ppi = diagonal_resolution_px / diagonal_size_in;
         }
+
+        // set the distance between lines of the calibration depending on screen size
+        function load_calibration_lines() {
+            var one_cm_in_px = ppi / 2.54
+            var one_mm_in_px = ppi / 25.4
+            document.getElementById("calibration").innerHTML =
+                "<hr style=\"border-top: " + one_mm_in_px + "px solid black;\">\
+                <hr id=\"calibration\" style=\"border-top: "+ one_cm_in_px +"px solid white;\">\
+                <hr style=\"border-top: " + one_mm_in_px + "px solid black;\">";
+        }
+
+        // inverse colors of the page if asked in the config
         function load_colors() {
             if (localStorage.getItem("inverse_colors") !== null && localStorage['inverse_colors'] == "true") {
                 var hrs = document.getElementsByTagName("hr");

@@ -61,16 +61,11 @@
         var ppi;
 
         function load_variables() {
-            screen_width = document.documentElement.clientWidth
-            screen_height = document.documentElement.clientHeight;
+            screen_width = screen.width * window.devicePixelRatio;
+            screen_height = screen.height * window.devicePixelRatio;
             var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
             var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
             ppi = diagonal_resolution_px / diagonal_size_in;
-            console.log("client_width:" + screen_width + " // client.height:" + screen_height)
-            console.log("window.screen.width:" + window.screen.width + " // window.screen.height:" + window.screen.height)
-            console.log("screen.width:" + screen.width + " // screen.height:" + screen.height)
-            console.log("window.devicePixelRatio :" + window.devicePixelRatio)
-            console.log("ppi:" + ppi + " // diago_size_in:" + diagonal_size_in);
         }
 
         function touchListener(event) {
