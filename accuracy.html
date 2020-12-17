@@ -13,7 +13,7 @@
                 <td><a href="accuracy.html#start">Accuracy</a>
         </table>
     </nav>
-    <body onload="listenMovement(); saveRefToFile()">
+    <body onload=" load_variables(); listenMovement(); saveRefToFile();">
 
         <div id=start></div>
         <hr style="border-top: 140vh solid white;">
@@ -56,11 +56,32 @@
         var touchX;
         var touchY;
         var csv = "X, Y\n";
+        var screen_width;
+        var screen_height;
+        var ppi;
+
+        function load_variables() {
+            screen_width = document.documentElement.clientWidth
+            screen_height = document.documentElement.clientHeight;
+            var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
+            var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
+            ppi = diagonal_resolution_px / diagonal_size_in;
+            console.log("client_width:" + screen_width + " // client.height:" + screen_height)
+            console.log("window.screen.width:" + window.screen.width + " // window.screen.height:" + window.screen.height)
+            console.log("screen.width:" + screen.width + " // screen.height:" + screen.height)
+            console.log("window.devicePixelRatio :" + window.devicePixelRatio)
+            console.log("ppi:" + ppi + " // diago_size_in:" + diagonal_size_in);
+        }
 
         function touchListener(event) {
             touch = event.touches[0];
-            touchX = Math.round(touch.clientX);
-            touchY = Math.round(touch.clientY);
+            touch.
+            touchX = Math.round(touch.screenX);
+            touchY = Math.round(touch.screenY);
+            // apply ratio if density of pixel is not 1:1
+            ratio = window.devicePixelRatio
+            touchX = touchX * ratio
+            touchY = touchY * ratio
             csv += touchX + ", " + touchY + "\n";
             csv += pixel_to_mm(touchX) + ", " + pixel_to_mm(touchY) + "\n";
             console.log("touch at: X" + touchX + " Y" + touchY);
@@ -119,11 +140,7 @@
 
         // Convertion from pixel to mm
         function pixel_to_mm(px) {
-            var diagonal_resolution_px = Math.sqrt(Math.pow(screen.width, 2) + Math.pow(screen.height, 2))
-            var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
-            var ppi = diagonal_resolution_px / diagonal_size_in;
             var one_pixel_in_mm = 1 / (ppi * 0.254);
-            console.log("screen.width:" + screen.width + "//screen.height:" + screen.height + "//ppi:" + ppi + "//diago_size_in:" + diagonal_size_in);
             return one_pixel_in_mm * px;
         }
     </script>
