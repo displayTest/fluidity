@@ -1,0 +1,61 @@
+<!--<!DOCTYPE html>
+<html>
+    <meta name='viewport' content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
+    <head>
+        <title>Swipe Calibration</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <nav>
+        <table>
+            <tr>
+                <td><a href="swipe_calibration.html#start">Swipe Calibration</a>
+                <td><a href="swipe.html#start">Swipe</a>
+                <td><a href="accuracy.html#start">Accuracy</a>
+        </table>
+    </nav>
+    <body onload="load_variables(); load_calibration_lines(); load_colors();">
+        <div id="start"></div>
+        <hr style="border-top: 45vh solid white;">
+        <hr style="border-top: 1mm solid black;">
+        <div id="calibration"></div>
+        <hr style="border-top: 1mm solid black;">
+        <hr style="border-top: 50vh solid white;">
+    </body>
+    <script>
+        var screen_width;
+        var screen_height;
+        var ppi;
+
+        // init variables needed for next functions
+        function load_variables() {
+            screen_width = screen.width; // do not use devicePixelRatio here as the error is cancelled using px unit for drawing 
+            screen_height = screen.height;
+            var diagonal_resolution_px = Math.sqrt(Math.pow(screen_width, 2) + Math.pow(screen_height, 2))
+            var diagonal_size_in = localStorage['diagonal_size_in'] || 1;
+            ppi = diagonal_resolution_px / diagonal_size_in;
+        }
+
+        // set the distance between lines of the calibration depending on screen size
+        function load_calibration_lines() {
+            var one_cm_in_px = ppi / 2.54
+            var one_mm_in_px = ppi / 25.4
+            document.getElementById("calibration").innerHTML =
+                "<hr style=\"border-top: " + one_mm_in_px + "px solid black;\">\
+                <hr id=\"calibration\" style=\"border-top: "+ one_cm_in_px +"px solid white;\">\
+                <hr style=\"border-top: " + one_mm_in_px + "px solid black;\">";
+        }
+
+        // inverse colors of the page if asked in the config
+        function load_colors() {
+            if (localStorage.getItem("inverse_colors") !== null && localStorage['inverse_colors'] == "true") {
+                var hrs = document.getElementsByTagName("hr");
+                for (var i = 0; i < hrs.length; i++) {
+                    if (hrs[i].style.borderTopColor == "white")
+                        hrs[i].style.borderTopColor = "black";
+                    else
+                        hrs[i].style.borderTopColor = "white";
+                }
+            }
+        }
+    </script>
+</html>-->
