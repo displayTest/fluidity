@@ -49,8 +49,8 @@ hr {
 }
 
 .smooth {
-    animation-delay: 2s;
-    animation-duration: 15s;
+    animation-delay: 0.5s;
+    animation-duration: 2s;
     animation-name: slideTop;
     animation-timing-function: linear;
     animation-fill-mode: both;
@@ -58,18 +58,14 @@ hr {
 
 @keyframes slideTop {
     from {
-        margin-top:90vh;
+        margin-top:75vh;
         width:100%;
     }
 
     to {
-        margin-top:10vh;
+        margin-top:25vh;
         width:100%;
     }
-}
-
-.right {
-    float: right;
 }
 
 /* accuracy */
