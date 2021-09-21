@@ -48,6 +48,17 @@ hr {
     border: 0px; 
 }
 
+.fix_view {
+    position: fixed;
+    width: 100%;
+}
+
+#smooth_video {
+    position: relative;
+    right: 0;
+    min-width: 100%;
+}
+
 .smooth {
     animation-delay: 0.5s;
     animation-duration: 2s;
