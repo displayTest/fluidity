@@ -47,16 +47,22 @@ hr {
     margin: 0mm 0mm;
     border: 0px; 
 }
-
+/*
 .fix_view {
+    top: 0;
+    right:0;
     position: fixed;
     width: 100%;
 }
-
+*/
 #smooth_video {
     position: relative;
     right: 0;
     min-width: 100%;
+}
+
+.viewport {
+    height: 100vh;
 }
 
 .smooth {
@@ -64,17 +70,23 @@ hr {
     animation-duration: 2s;
     animation-name: slideTop;
     animation-timing-function: linear;
+    animation-iteration-count: infinite;
     animation-fill-mode: both;
+}
+
+.smooth2 {
+    transform: translateY(-50%);
+    transition: transform 2s linear 0.5S;
 }
 
 @keyframes slideTop {
     from {
-        margin-top:75vh;
+        transform: translateY(75%);
         width:100%;
     }
 
     to {
-        margin-top:25vh;
+        transform: translateY(25%);
         width:100%;
     }
 }
