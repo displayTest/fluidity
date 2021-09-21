@@ -48,20 +48,6 @@ hr {
     border: 0px;
 }
 
-/*
-.fix_view {
-    top: 0;
-    right:0;
-    position: fixed;
-    width: 100%;
-}
-*/
-#smooth_video {
-    position: relative;
-    right: 0;
-    min-width: 100%;
-}
-
 .viewport {
     height: 100vh;
 }
@@ -92,7 +78,7 @@ hr {
 
 .fixed {
     position: fixed;
-    /*top: 50%;*/
-    /*left: 50%;*/
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%); /*center the object on the given coordinates*/
 }
