@@ -1,31 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta name='viewport'
-          content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
     <head>
-        <title>Smooth swipe</title>
-        <link rel="stylesheet" href="style.css">
+        <meta name='viewport'
+              content='width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no, target-densitydpi=device-dpi'>
+        <head>
+            <title>Smooth swipe</title>
+            <link rel="stylesheet" href="style.css">
+        </head>
     </head>
-</head>
 
-<nav>
-    <table>
-        <tr>
-            <td><a href="swipe_calibration.html#start">Swipe Calibration</a>
-            <td><a href="swipe.html#start">Swipe</a>
-            <td><a href="index.html#start">Home page</a>
-    </table>
-</nav>
+    <nav>
+        <table>
+            <tr>
+                <td><a href="swipe_calibration.html#start">Swipe Calibration</a>
+                <td><a href="swipe.html#start">Swipe</a>
+                <td><a href="index.html#start">Home page</a>
+        </table>
+    </nav>
 
-<body>
-    <div class="viewport">
-        <div class="smooth">
-            <hr style="border-top: 1mm solid black;">
-        </div>
-    </div>
-    <div id="start"></div>
-</body>
+    <body onload="load_colors();">
+         <div class="viewport">
+            <div class="smooth">
+                <hr style="border-top: 1mm solid black;">
+            </div>
+         </div>
+        <div id="start"></div>
+    </body>
+
+    <script>
+        function load_colors() {
+            if (localStorage.getItem("inverse_colors") !== null && localStorage['inverse_colors'] == "true") {
+                document.body.style.background = "black"
+                var hrs = document.getElementsByTagName("hr");
+                for (var i = 0; i < hrs.length; i++) {
+                    if (hrs[i].style.borderTopColor == "white")
+                        hrs[i].style.borderTopColor = "black";
+                    else
+                        hrs[i].style.borderTopColor = "white";
+                }
+            }
+        }
+    </script>
 
 </html>
